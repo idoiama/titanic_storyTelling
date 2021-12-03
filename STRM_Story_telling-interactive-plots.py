@@ -14,8 +14,9 @@ def get_percentages(df,name_column):
     percentage = percentage.sort_values(by=name_column)
     return percentage
 
-
+##############################################################################################
 # PAGE STYLING
+##############################################################################################
 st.set_page_config(page_title="Titanic Dashboard ", 
                    page_icon=":ship:",
                    layout='wide')
@@ -36,18 +37,11 @@ st.header("**Overall information from Titanic**")
 Bla bla bla information from Titanic bla bla bla"""
 
 
-#Data loading and first checks
+# Data loading and first checks
 df = pd.read_csv('clean_titanic.csv', index_col=0)
 color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
-
-# 4. Data Exploration
-#     We'll Explore the data by visualizing and then noting patterns and relationships between different   
-#     variables to try and get an out of the box view as mush as possible, later this can help us impute the    'Age' 
-#     which is first in order alphabetically but we'll leave it last to get a better understanding and impute it 
-#     better than just replacing missing values with the median.
-
-
+# Static plots in two columns
 col1, col2 = st.beta_columns(2)
 
 with col1:
@@ -63,13 +57,13 @@ with col2:
                  color_discrete_sequence = color_list)
     st.plotly_chart(fig)
 
-    
- ################ FILTER BY PORTS: multiple ports at the same time ###########  
+##############################################################################################    
+# Multiple choice items
+##############################################################################################
+
 all_ports = df.Embarked.unique().tolist()
 st.subheader('**Select the all_port/s you want to explore**')
 langs = st.multiselect(' ',options=all_ports, default=all_ports)
-
-## 4.1. Embarked variable
 
 plot_df = df[df.Embarked.isin(langs)]
 count_Embarked = get_percentages(plot_df, 'Embarked')
@@ -101,7 +95,7 @@ with col2:
     st.plotly_chart(fig2)
     
 ############################################################################################
-# SELECTBOX: zooming into one category
+# SELECTBOX: zooming into one category (JUST ONE)
 ############################################################################################
 
 st.title('Dive into the Embarked Ports!')
@@ -109,7 +103,7 @@ all_ports = df.Embarked.unique().tolist()
 options = st.selectbox(
  'Which port are you interested in diving in?', all_ports)
 
-#Filter the information for this port specifically
+# Filter the information for this port specifically
 ind_port = df[df.Embarked == options]
 
 st.subheader('Distribution of people in the different classes')
@@ -118,7 +112,6 @@ classes_ = get_percentages(ind_port, 'Pclass')
 fig3 = px.pie(classes_, values='percentage', color= 'Pclass',names= 'Pclass', title = 'Class distribution',
                color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig3)
-
 
 st.subheader('People that did not survived')
 sex_ = get_percentages(ind_port , 'Sex')
@@ -132,7 +125,6 @@ st.plotly_chart(fig4)
 # a) One specific number as input 
 
 age_in = st.number_input("Let's zoom in into a range of ages: enter your age")
-#text_input() for text
 ages = df[df['Age'] > int(age_in)]
 
 col1, col2 = st.beta_columns(2)
@@ -150,7 +142,7 @@ with col2:
             title = 'Sex amongst Embark Points')
     st.plotly_chart(fig)
     
-# b) Bar slider    
+# b) Bar slider to select a range of values (numerical)    
 values = st.slider( 'Select a range of values',0.0, 100.0, (25.0, 75.0))
 st.write('Values:', values[0])
 
@@ -171,54 +163,14 @@ with col2:
             title = 'Sex amongst Embark Points')
     st.plotly_chart(fig)  
     
-    
-# ### 4.1.4. `Sex` Stacked Bar Chart
-# <a class="anchor" id="4.1.4."></a>
-# 
-#     and what about the Gender?
+##############################################################################################
+# Get a table
+##############################################################################################  
+sex_in = st.text_input("Let's zoom in into the sex variable: enter your sex")
+sex_ = df[df['Sex']  == sex_in]
+sex_count= get_percentages(sex_ , 'Sex')
+st.subheader("This is the overall distribution of people according to your sex")
 
-# In[76]:
-
-
-embarked_count_male = get_percentages(df[df['Sex'] == 'male'] , 'Embarked')
-embarked_count_male['Sex'] = 'male'
-
-
-# In[73]:
-
-
-embarked_count_female = get_percentages(df[df['Sex'] == 'female'] , 'Embarked')
-embarked_count_female['Sex'] = 'female'
-
-
-# In[77]:
-
-
-embarked_sex = pd.concat([embarked_count_male,
-                          embarked_count_female], axis=0)
- 
-
-
-# In[81]:
-
-
-fig = px.bar(embarked_sex, x= 'Embarked', y="percentage", color='Sex',
-            color_discrete_sequence=color_list)
-
-#fig.update_layout(title_text='Least Used Feature')
-fig.show()
-
-
-# ### 4.1.5. `Fare` Box Plot
-# <a class="anchor" id="4.1.5."></a>
-
-# In[ ]:
-
-
-fig = px.box(df,x= 'Embarked', y= 'Fare',color= 'Embarked',
-             color_discrete_sequence=['Coral', 'Gold', 'Lightgreen'],
-            title = 'Embarkment and Fares')
-fig.show()
-
+st.table(sex_count)
 
 
