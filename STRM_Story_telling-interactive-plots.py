@@ -52,14 +52,14 @@ with col1:
 
     st.subheader('Distribution of classes in all Embarked ports')
     fig = px.bar(df, x='Embarked', y = 'Pclass',
-                color = 'Embarked',color_discrete_sequence = color_list)
+                color = 'Pclass',color_discrete_sequence = color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
 with col2:
     st.subheader('Distribution of Gender in all Embarked ports')
     fig = px.bar(df, x='Embarked', y = 'Sex',
-                color = 'Embarked',color_discrete_sequence = color_list)
+                color = 'Sex',color_discrete_sequence = color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
