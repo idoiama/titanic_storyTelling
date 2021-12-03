@@ -22,6 +22,15 @@ st.title("Welcome to the ***Titanic*** dashboard! : :star:")
 RMS Titanic was a British passenger liner, operated by the White Star Line, which sank in the North Atlantic Ocean on 15 April 1912 after striking an iceberg during her maiden voyage from Southampton, UK, to New York City. Of the estimated 2,224 passengers and crew aboard, more than 1,500 died, which made the sinking possibly one of the deadliest for a single ship up to that time. [a] It remains to this day the deadliest peacetime sinking of a superliner or cruise ship.[4] 
 The disaster drew much public attention, provided foundational material for the disaster film genre and has inspired many artistic work
 """
+# Page styling
+title_image = Image.open("titanic.jpg")
+st.image(title_image)
+st.markdown("Let's ask the following question: ***'Can we use Python to retrive information from the titanic?' ***")
+
+st.header("**Overall information from Titanic**")
+"""
+Bla bla bla information from Titanic bla bla bla"""
+
 
 
 df = pd.read_csv('clean_titanic.csv', index_col=0)
@@ -61,7 +70,7 @@ def get_percentages(df,name_column):
 
 
 count_Embarked = get_percentages(df, 'Embarked')
-count_Embarked
+
 
 
 # In[58]:
@@ -87,7 +96,6 @@ fig.show()
 
 
 survived_Embarked = get_percentages(df[df['Survived'] == 1] , 'Embarked')
-survived_Embarked
 
 
 # In[65]:
@@ -103,7 +111,6 @@ fig.show()
 
 
 survived_Embarked = get_percentages(df[df['Survived'] == 0] , 'Embarked')
-survived_Embarked
 
 
 # In[67]:
@@ -131,12 +138,6 @@ df.Age.describe().T
 
 df['Age'] = df['Age'].astype('int')
 df[df.Embarked == 'Queenstown']['Age'].value_counts()
-
-
-# In[ ]:
-
-
-df.groupby('Embarked').describe().T
 
 
 # In[ ]:
@@ -173,7 +174,7 @@ embarked_count_female['Sex'] = 'female'
 
 embarked_sex = pd.concat([embarked_count_male,
                           embarked_count_female], axis=0)
-embarked_sex 
+ 
 
 
 # In[81]:
