@@ -45,8 +45,6 @@ color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
 
 # 4. Data Exploration
-
-
 #     We'll Explore the data by visualizing and then noting patterns and relationships between different   
 #     variables to try and get an out of the box view as mush as possible, later this can help us impute the    'Age' 
 #     which is first in order alphabetically but we'll leave it last to get a better understanding and impute it 
@@ -102,7 +100,7 @@ with col1:
 with col2:
     st.subheader('Rate of people who did not survived')
     fig2 =  px.bar(count_0, x = 'Embarked', y = 'percentage',text= 'percentage',
-            color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')            
+            color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')            
     st.plotly_chart(fig2)
     
 ############################################################################################
@@ -126,7 +124,7 @@ st.plotly_chart(fig3)
 
 
 st.subheader('People that did not survived')
-survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 0] , 'Embarked')
+sex_ = get_percentages(ind_port , 'Sex')
 fig4 = px.pie(sex_, values='percentage', color= 'Sex',names= 'Sex', title = 'Sex distribution',
                color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig4)
