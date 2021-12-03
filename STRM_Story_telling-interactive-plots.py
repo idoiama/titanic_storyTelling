@@ -166,11 +166,9 @@ with col2:
 ##############################################################################################
 # Get a table
 ##############################################################################################  
-sex_in = st.text_input("Let's zoom in into the sex variable: enter your sex")
+sex_in = st.text_input("Let's zoom in into the sex variable: enter your sex [female OR male]")
 sex_ = df[df['Sex']  == sex_in]
-sex_count= get_percentages(sex_ , 'Sex')
-st.subheader("This is the overall distribution of people according to your sex")
+port_count = get_percentages(sex_ , 'Embarked')
+st.subheader("This is the overall distribution of people in the portsaccording to your sex")
 
-st.table(sex_count)
-
-
+st.table(port_count)
