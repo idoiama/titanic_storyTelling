@@ -1,4 +1,3 @@
-
 #Import common modules
 import streamlit as st
 import pandas as pd
@@ -8,8 +7,6 @@ from PIL import Image
 import numpy as np
 import plotly.express as px
 
-import warnings
-warnings.filterwarnings('ignore')
 def get_percentages(df,name_column):
     percentage = df[name_column].value_counts(normalize=True)*100
     percentage = percentage.reset_index()
@@ -104,7 +101,7 @@ with col2:
     st.plotly_chart(fig2)
     
 ############################################################################################
-# ZOOM INTO ONE PORT
+# SELECTBOX: zooming into one category
 ############################################################################################
 
 st.title('Dive into the Embarked Ports!')
@@ -155,9 +152,10 @@ with col2:
     
 # b) Bar slider    
 values = st.slider( 'Select a range of values',0.0, 100.0, (25.0, 75.0))
+values = int(values)
 st.write('Values:', values[0])
 
-
+ages = df[(df['Age'] > values[0]) & (df['Age'] < values[1])]
 
 col1, col2 = st.beta_columns(2)
 with col1:
