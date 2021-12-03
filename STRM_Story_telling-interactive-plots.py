@@ -152,7 +152,6 @@ with col2:
     
 # b) Bar slider    
 values = st.slider( 'Select a range of values',0.0, 100.0, (25.0, 75.0))
-values = int(values)
 st.write('Values:', values[0])
 
 ages = df[(df['Age'] > values[0]) & (df['Age'] < values[1])]
