@@ -81,7 +81,7 @@ def get_percentages(df,name_column):
 # Showng all p
 
 ################ FILTER BY PORTS ###########
-plot_df = df[df.CouEmbarked.isin(langs)]
+plot_df = df[df.Embarked.isin(langs)]
 count_Embarked = get_percentages(df, 'Embarked')
 
 
