@@ -10,6 +10,12 @@ import plotly.express as px
 
 import warnings
 warnings.filterwarnings('ignore')
+def get_percentages(df,name_column):
+    percentage = df[name_column].value_counts(normalize=True)*100
+    percentage = percentage.reset_index()
+    percentage.columns = [name_column,'percentage']
+    percentage = percentage.sort_values(by=name_column)
+    return percentage
 
 
 # PAGE STYLING
@@ -52,7 +58,7 @@ col1, col2 = st.beta_columns(2)
 with col1:
 
     st.subheader('Distribution of classes in all Embarked ports')
-    fig = px.bar(df, x='Embarked', y = 'Pclass',
+    fig = px.pie(df, x='Embarked', y = 'Pclass',
                 color = 'Pclass',color_discrete_sequence = color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
@@ -70,14 +76,6 @@ langs = st.multiselect(' ',options=all_ports, default=all_ports)
 
 
 # ## 4.1. Embarked variable
-
-def get_percentages(df,name_column):
-    percentage = df[name_column].value_counts(normalize=True)*100
-    percentage = percentage.reset_index()
-    percentage.columns = [name_column,'percentage']
-    percentage = percentage.sort_values(by=name_column)
-    return percentage
-
 
 ################ FILTER BY PORTS ###########
 plot_df = df[df.Embarked.isin(langs)]
@@ -120,31 +118,21 @@ st.plotly_chart(fig3)
 
 
 st.subheader('People that did not survived')
-survived_Embarked = get_percentages(df[df['Survived'] == 0] , 'Embarked')
+survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 0] , 'Embarked')
 fig4 = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
 st.plotly_chart(fig4)
 
 
+name = st.sidebar.text_input('''Let's zoom in into a range of ages: enter your age''')
+ages = df[df['Age'] > name]
 
 # ### 4.1.3. `Age` Box plots
 # <a class="anchor" id="4.1.3."></a>
-# 
-#     Which of the ports embarked the youngest population range?
-
-
-df['Age'] = df['Age'].astype('int')
-df[df.Embarked == 'Queenstown']['Age'].value_counts()
-
-
-# In[ ]:
-
-
-fig = px.box(df,x= 'Embarked', y= 'Age',color= 'Embarked',
+fig = px.box(ages,x= 'Embarked', y= 'Age',color= 'Embarked',
              color_discrete_sequence=['Coral', 'Gold', 'Lightgreen'],
             title = 'Age amongst Embark Points')
-fig.show()
-
+st.plotly_chart(fig)
 
 # ### 4.1.4. `Sex` Stacked Bar Chart
 # <a class="anchor" id="4.1.4."></a>
