@@ -18,14 +18,13 @@ st.set_page_config(page_title="Titanic Dashboard ",
                    
 st.title("Welcome to the ***Titanic*** dashboard! : :star:")
 """
-[Allwomen] (https://www.allwomen.tech/)
-Bla bla bla information from our students bla bla bla
-We believe that any background is the right background to become a woman in tech. That’s why we design our programs for you to go from 0 to 100, and we offer mentoring and assistance from beginning to end. 
-Because your past shouldn’t be an obstacle in your future career!
+[Titanic] (https://en.wikipedia.org/wiki/Titanic)
+RMS Titanic was a British passenger liner, operated by the White Star Line, which sank in the North Atlantic Ocean on 15 April 1912 after striking an iceberg during her maiden voyage from Southampton, UK, to New York City. Of the estimated 2,224 passengers and crew aboard, more than 1,500 died, which made the sinking possibly one of the deadliest for a single ship up to that time. [a] It remains to this day the deadliest peacetime sinking of a superliner or cruise ship.[4] 
+The disaster drew much public attention, provided foundational material for the disaster film genre and has inspired many artistic work
 """
 
 
-data = pd.read_csv('clean_titanic.csv', index_col=0)
+df = pd.read_csv('clean_titanic.csv', index_col=0)
 
 
 # # 4. Data Exploration
