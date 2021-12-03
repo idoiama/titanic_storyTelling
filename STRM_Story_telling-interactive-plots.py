@@ -5,11 +5,8 @@ import pandas as pd
 pd.options.mode.chained_assignment = None
 
 import numpy as np
-from matplotlib import pyplot as plt
 import seaborn as sns
-import matplotlib
 import plotly.express as px
-import plotly.graph_objs as go
 
 import warnings
 warnings.filterwarnings('ignore')
