@@ -156,9 +156,15 @@ with col2:
 # b) Bar slider    
 age_in = st.slider("Let's zoom in into a range of ages: enter your age", min_value=0, max_value=80)
 #text_input() for text
-#age_in = int(age_in)
-print(type(age_in))
-ages = df[df['Age'].isin(age_in)]
+start_color, end_color = st.select_slider(
+...     'Select a range of age',
+...     options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
+...     value=('red', 'blue'))
+
+values = st.slider( 'Select a range of values',0.0, 100.0, (25.0, 75.0))
+st.write('Values:', values)
+
+
 
 col1, col2 = st.beta_columns(2)
 with col1:
