@@ -86,10 +86,10 @@ st.plotly_chart(fig)
 
 ## Showing the Survival information into two different columns
 
-plot_1 = plot_1[plot_1['Survived'] == 1]
+plot_1 = plot_df[plot_df['Survived'] == 1]
 count_1 = get_percentages(plot_1, 'Embarked')
 
-plot_0 = plot_0[plot_0['Survived'] == 0]
+plot_0 = plot_df[plot_df['Survived'] == 0]
 count_0 = get_percentages(plot_0, 'Embarked')
 
 col1, col2 = st.beta_columns(2)
