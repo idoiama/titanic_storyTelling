@@ -57,8 +57,8 @@ col1, col2 = st.beta_columns(2)
 
 with col1:
 
-    st.subheader('Distribution of classes in all Embarked ports')
-    fig = px.pie(df, x='Embarked', y = 'Pclass',
+    st.subheader('Distribution of classes')
+    fig = px.pie(df, value= 'Pclass',
                 color = 'Pclass',color_discrete_sequence = color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
