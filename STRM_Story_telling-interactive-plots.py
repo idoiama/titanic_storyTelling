@@ -101,24 +101,27 @@ with col2:
     fig2 =  px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')            
     st.plotly_chart(fig2)
+    
+    
+st.title('Dive into the Embarked Ports!')
+all_ports = df.Embarked.unique().tolist()
+options = st.selectbox(
+ 'Which port are you interested in diving in?', all_ports)
+#Filter the information for this port specifically
+
+ind_port = df[df.Course_general == options]
 
 
-# ### 4.1.2. `Embarked` vs `Survived` Stacked Bar Chart
-# <a class="anchor" id="4.1.2."></a>
-
-# In[62]:
+survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 1] , 'Embarked')
 
 
-survived_Embarked = get_percentages(df[df['Survived'] == 1] , 'Embarked')
 
-
-# In[65]:
 
 
 fig = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
 
-fig.show()
+st.plotly_chart(fig)
 
 
 # In[66]:
@@ -140,14 +143,6 @@ fig.show()
 # <a class="anchor" id="4.1.3."></a>
 # 
 #     Which of the ports embarked the youngest population range?
-
-# In[ ]:
-
-
-df.Age.describe().T
-
-
-# In[ ]:
 
 
 df['Age'] = df['Age'].astype('int')
@@ -173,7 +168,6 @@ fig.show()
 
 embarked_count_male = get_percentages(df[df['Sex'] == 'male'] , 'Embarked')
 embarked_count_male['Sex'] = 'male'
-embarked_count_male
 
 
 # In[73]:
