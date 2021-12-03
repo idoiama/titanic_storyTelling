@@ -133,15 +133,22 @@ st.plotly_chart(fig4)
 # Side bar, customize the dashboard with some input data
 ##############################################################################################
 age_in = st.text_input('''Let's zoom in into a range of ages: enter your age''')
-ages = df[df['Age'] > age_in]
+ages = df[df['Age'] > int(age_in)]
 
-# ### 4.1.3. `Age` Box plots
-# <a class="anchor" id="4.1.3."></a>
-fig = px.box(ages,x= 'Embarked', y= 'Age',color= 'Embarked',
-             color_discrete_sequence=['Coral', 'Gold', 'Lightgreen'],
+col1, col2 = st.beta_columns(2)
+with col1:
+    st.subheader('Distribution of ages, according to your input')
+    fig = px.box(ages,x= 'Embarked', y= 'Age',color= 'Embarked',
+             color_discrete_sequence=color_list,
             title = 'Age amongst Embark Points')
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
+with col2:
+    fig = px.histogram(ages,x= 'Sex',color= 'Embarked',
+             color_discrete_sequence=color_list,
+            title = 'Age amongst Embark Points')
+    st.plotly_chart(fig)
+    
 # ### 4.1.4. `Sex` Stacked Bar Chart
 # <a class="anchor" id="4.1.4."></a>
 # 
