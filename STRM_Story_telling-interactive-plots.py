@@ -130,12 +130,12 @@ fig4 = px.pie(sex_, values='percentage', color= 'Sex',names= 'Sex', title = 'Sex
 st.plotly_chart(fig4)
 
 ##############################################################################################
-# Side bar, customize the dashboard with some input data
+# Customize the dashboard with some input data
 ##############################################################################################
-age_in = st.number_input('''Let's zoom in into a range of ages: enter your age''')
+# a) One specific number as input 
+
+age_in = st.number_input('Let's zoom in into a range of ages: enter your age')
 #text_input() for text
-#age_in = int(age_in)
-print(type(age_in))
 ages = df[df['Age'] > int(age_in)]
 
 col1, col2 = st.beta_columns(2)
@@ -152,6 +152,29 @@ with col2:
              color_discrete_sequence=color_list,
             title = 'Sex amongst Embark Points')
     st.plotly_chart(fig)
+    
+# b) Bar slider    
+age_in = st.slider("Let's zoom in into a range of ages: enter your age", min_value=0, max_value=80)
+#text_input() for text
+#age_in = int(age_in)
+print(type(age_in))
+ages = df[df['Age'].isin(age_in)]
+
+col1, col2 = st.beta_columns(2)
+with col1:
+    st.subheader('Distribution of ages, according to your input')
+    fig = px.box(ages,x= 'Embarked', y= 'Age',color= 'Embarked',
+             color_discrete_sequence=color_list,
+            title = 'Age amongst Embark Points')
+    st.plotly_chart(fig)
+
+with col2:
+    st.subheader('Distribution of sex, according to your input')
+    fig = px.histogram(ages,x= 'Sex',color= 'Embarked',
+             color_discrete_sequence=color_list,
+            title = 'Sex amongst Embark Points')
+    st.plotly_chart(fig)  
+    
     
 # ### 4.1.4. `Sex` Stacked Bar Chart
 # <a class="anchor" id="4.1.4."></a>
