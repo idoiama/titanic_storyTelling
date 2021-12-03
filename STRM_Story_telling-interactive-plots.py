@@ -109,7 +109,7 @@ options = st.selectbox(
  'Which port are you interested in diving in?', all_ports)
 #Filter the information for this port specifically
 
-ind_port = df[df.Course_general == options]
+ind_port = df[df.Embarked == options]
 
 
 survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 1] , 'Embarked')
