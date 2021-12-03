@@ -1,30 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# <h1>Table of Contents<span class="tocSkip"></span></h1>
-# <div class="toc"><ul class="toc-item"><li><span><a href="#1.-Introduction" data-toc-modified-id="1.-Introduction-1">1. Introduction</a></span></li><li><span><a href="#2.-First-Steps" data-toc-modified-id="2.-First-Steps-2">2. First Steps</a></span></li><li><span><a href="#3.-Data-Preparation-and-Cleaning" data-toc-modified-id="3.-Data-Preparation-and-Cleaning-3">3. Data Preparation and Cleaning</a></span><ul class="toc-item"><li><span><a href="#3.1.-Drop-Unique-Columns" data-toc-modified-id="3.1.-Drop-Unique-Columns-3.1">3.1. Drop Unique Columns</a></span></li><li><span><a href="#3.2.-Missing-Data" data-toc-modified-id="3.2.-Missing-Data-3.2">3.2. Missing Data</a></span></li><li><span><a href="#3.3.-Outliers" data-toc-modified-id="3.3.-Outliers-3.3">3.3. Outliers</a></span><ul class="toc-item"><li><span><a href="#Fare" data-toc-modified-id="Fare-3.3.1"><code>Fare</code></a></span></li><li><span><a href="#Agevariable" data-toc-modified-id="Agevariable-3.3.2"><code>Age</code>variable</a></span></li></ul></li></ul></li><li><span><a href="#4.-Data-Exploration" data-toc-modified-id="4.-Data-Exploration-4">4. Data Exploration</a></span><ul class="toc-item"><li><span><a href="#4.1.-Embarked-variable" data-toc-modified-id="4.1.-Embarked-variable-4.1">4.1. Embarked variable</a></span><ul class="toc-item"><li><span><a href="#4.1.2.-Embarked-vs-Survived-Stacked-Bar-Chart" data-toc-modified-id="4.1.2.-Embarked-vs-Survived-Stacked-Bar-Chart-4.1.1">4.1.2. <code>Embarked</code> vs <code>Survived</code> Stacked Bar Chart</a></span></li><li><span><a href="#4.1.3.-Age-Box-plots" data-toc-modified-id="4.1.3.-Age-Box-plots-4.1.2">4.1.3. <code>Age</code> Box plots</a></span></li><li><span><a href="#4.1.4.-Sex-Stacked-Bar-Chart" data-toc-modified-id="4.1.4.-Sex-Stacked-Bar-Chart-4.1.3">4.1.4. <code>Sex</code> Stacked Bar Chart</a></span></li><li><span><a href="#4.1.5.-Fare-Box-Plot" data-toc-modified-id="4.1.5.-Fare-Box-Plot-4.1.4">4.1.5. <code>Fare</code> Box Plot</a></span></li><li><span><a href="#4.1.6.-PClass-Grouped-Bar-Plot" data-toc-modified-id="4.1.6.-PClass-Grouped-Bar-Plot-4.1.5">4.1.6. <code>PClass</code> Grouped Bar Plot</a></span></li></ul></li></ul></li></ul></div>
-
-# # 1. Introduction
-# <a class="anchor" id="1"></a>
-# 
-# [^ Index](#index)
-
-#     The objectives are: 
-#         1 - Prepare your data for the visualization tasks: data cleaning
-#         2 - Explore your data and create cool plots
-#         
-# **Variable information:**        
-# ![image.png](attachment:image.png)
-
-# # 2. First Steps
-# <a class="anchor" id="2"></a>
-# 
-# [^ Index](#index)
-
-# In[1]:
-
 
 #Import common modules
+import streamlit as st
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
@@ -39,17 +15,18 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# In[2]:
-
-
-# Execute this line (of course, modifying the path)
-import sys
-sys.path.insert(0, 'G:/Mi unidad/DS_CURRICULUM_FT/_functions_')
-
-from Functions_EDA import *
-
-
-# In[53]:
+# PAGE STYLING
+st.set_page_config(page_title="Titanic Dashboard ", 
+                   page_icon=":ship:",
+                   layout='wide')
+                   
+st.title("Welcome to the ***Titanic*** dashboard! : :star:")
+"""
+[Allwomen] (https://www.allwomen.tech/)
+Bla bla bla information from our students bla bla bla
+We believe that any background is the right background to become a woman in tech. That’s why we design our programs for you to go from 0 to 100, and we offer mentoring and assistance from beginning to end. 
+Because your past shouldn’t be an obstacle in your future career!
+"""
 
 
 data = pd.read_csv('clean_titanic.csv', index_col=0)
