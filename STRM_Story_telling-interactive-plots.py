@@ -66,7 +66,6 @@ with col2:
     st.subheader('Distribution of Gender')
     fig = px.histogram(df,x= 'Sex',color= 'Sex',
                  color_discrete_sequence = color_list)
-    fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
     
