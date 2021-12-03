@@ -93,7 +93,7 @@ col1, col2 = st.beta_columns(2)
 with col1:
     st.subheader('Subplot1')
     fig1 = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
-            color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')
+            color= 'Embarked',color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
     st.plotly_chart(fig1)  
     
 with col2:
@@ -111,32 +111,20 @@ options = st.selectbox(
 
 ind_port = df[df.Embarked == options]
 
-
+st.subheader('People that survived')
 survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 1] , 'Embarked')
-
-
-
-
-
-fig = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+fig3 = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
 
-st.plotly_chart(fig)
+st.plotly_chart(fig3)
 
 
-# In[66]:
-
-
+st.subheader('People that did not survived')
 survived_Embarked = get_percentages(df[df['Survived'] == 0] , 'Embarked')
-
-
-# In[67]:
-
-
-fig = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+fig4 = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
+st.plotly_chart(fig4)
 
-fig.show()
 
 
 # ### 4.1.3. `Age` Box plots
