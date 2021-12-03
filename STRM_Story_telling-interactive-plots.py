@@ -147,9 +147,10 @@ with col1:
     st.plotly_chart(fig)
 
 with col2:
+    st.subheader('Distribution of sex, according to your input')
     fig = px.histogram(ages,x= 'Sex',color= 'Embarked',
              color_discrete_sequence=color_list,
-            title = 'Age amongst Embark Points')
+            title = 'Sex amongst Embark Points')
     st.plotly_chart(fig)
     
 # ### 4.1.4. `Sex` Stacked Bar Chart
