@@ -134,7 +134,7 @@ st.plotly_chart(fig4)
 ##############################################################################################
 # a) One specific number as input 
 
-age_in = st.number_input('Let's zoom in into a range of ages: enter your age')
+age_in = st.number_input("Let's zoom in into a range of ages: enter your age")
 #text_input() for text
 ages = df[df['Age'] > int(age_in)]
 
