@@ -121,7 +121,7 @@ ind_port = df[df.Embarked == options]
 st.subheader('Distribution of people in the different classes')
 classes_ = get_percentages(ind_port, 'Pclass')
 
-fig3 = px.pie(classes_, values='percentage', color= 'Pclass',names= 'Pclass', title = 'Class distribution'
+fig3 = px.pie(classes_, values='percentage', color= 'Pclass',names= 'Pclass', title = 'Class distribution',
                color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig3)
 
