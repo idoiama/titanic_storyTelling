@@ -35,6 +35,7 @@ Bla bla bla information from Titanic bla bla bla"""
 
 #Data loading and first checks
 df = pd.read_csv('clean_titanic.csv', index_col=0)
+color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
 
 # 4. Data Exploration
@@ -51,14 +52,14 @@ with col1:
 
     st.subheader('Distribution of classes in all Embarked ports')
     fig = px.bar(df, x='Embarked', y = 'Pclass',
-                color = 'Embarked',color_discrete_map=color_courses)
+                color = 'Embarked',color_discrete_map=color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
 with col2:
     st.subheader('Distribution of Gender in all Embarked ports')
     fig = px.bar(df, x='Embarked', y = 'Sex',
-                color = 'Embarked',color_discrete_map=color_courses)
+                color = 'Embarked',color_discrete_map=color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
@@ -78,7 +79,6 @@ def get_percentages(df,name_column):
 
 
 count_Embarked = get_percentages(df, 'Embarked')
-color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
 
 #     Bar chart
