@@ -57,73 +57,84 @@ col1, col2 = st.beta_columns(2)
 
 with col1:
 
-    st.subheader('Distribution of classes')
-    fig = px.pie(df, value= 'Pclass',
-                color = 'Pclass',color_discrete_sequence = color_list)
-    fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
+    st.subheader('Distribution of Ages vs Sex vs Survival rate')
+    fig = px.scatter(df,x= 'Age', y = 'Survived',color= 'Sex',
+                 color_discrete_sequence = color_list)
     st.plotly_chart(fig)
 
 with col2:
-    st.subheader('Distribution of Gender in all Embarked ports')
-    fig = px.bar(df, x='Embarked', y = 'Sex',
-                color = 'Sex',color_discrete_sequence = color_list)
+    st.subheader('Distribution of Gender')
+    fig = px.histogram(df,x= 'Sex',color= 'Sex',
+                 color_discrete_sequence = color_list)
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
+    
+ ################ FILTER BY PORTS: multiple ports at the same time ###########  
 all_ports = df.Embarked.unique().tolist()
 st.subheader('**Select the all_port/s you want to explore**')
 langs = st.multiselect(' ',options=all_ports, default=all_ports)
 
+## 4.1. Embarked variable
 
-# ## 4.1. Embarked variable
-
-################ FILTER BY PORTS ###########
 plot_df = df[df.Embarked.isin(langs)]
 count_Embarked = get_percentages(plot_df, 'Embarked')
 
-
+st.subheader('Distribution of people who embarked in the selected ports')
 fig = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
 st.plotly_chart(fig)
 
-## Showing the info into two different columns
+## Showing the Survival information into two different columns
+
+plot_1 = plot_1[plot_1['Survived'] == 1]
+count_1 = get_percentages(plot_1, 'Embarked')
+
+plot_0 = plot_0[plot_0['Survived'] == 0]
+count_0 = get_percentages(plot_0, 'Embarked')
+
 col1, col2 = st.beta_columns(2)
 with col1:
-    st.subheader('Subplot1')
-    fig1 = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+    st.subheader('Rate of people who survived')
+    fig1 = px.bar(count_1, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked',color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
     st.plotly_chart(fig1)  
     
 with col2:
-    st.subheader('Subplot2')
-    fig2 =  px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+    st.subheader('Rate of people who did not survived')
+    fig2 =  px.bar(count_0, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')            
     st.plotly_chart(fig2)
     
-    
+############################################################################################
+# ZOOM INTO ONE PORT
+############################################################################################
+
 st.title('Dive into the Embarked Ports!')
 all_ports = df.Embarked.unique().tolist()
 options = st.selectbox(
  'Which port are you interested in diving in?', all_ports)
-#Filter the information for this port specifically
 
+#Filter the information for this port specifically
 ind_port = df[df.Embarked == options]
 
-st.subheader('People that survived')
-survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 1] , 'Embarked')
-fig3 = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
-            color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
+st.subheader('Distribution of people in the different classes')
+classes_ = get_percentages(ind_port, 'Pclass')
 
+fig3 = px.pie(classes_, values='percentage', color= 'Pclass',names= 'Pclass', title = 'Class distribution'
+               color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig3)
 
 
 st.subheader('People that did not survived')
 survived_Embarked = get_percentages(ind_port[ind_port['Survived'] == 0] , 'Embarked')
-fig4 = px.bar(survived_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
-            color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
+fig4 = px.pie(sex_, values='percentage', color= 'Sex',names= 'Sex', title = 'Sex distribution',
+               color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig4)
 
-
+##############################################################################################
+# Side bar, customize the dashboard with some input data
+##############################################################################################
 name = st.sidebar.text_input('''Let's zoom in into a range of ages: enter your age''')
 ages = df[df['Age'] > name]
 
