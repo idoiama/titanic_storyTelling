@@ -48,6 +48,7 @@ color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
 
 col1, col2 = st.beta_columns(2)
+
 with col1:
 
     st.subheader('Distribution of classes in all Embarked ports')
@@ -63,7 +64,9 @@ with col2:
     fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
     st.plotly_chart(fig)
 
-
+all_ports = df.Embarked.unique().tolist()
+st.subheader('**Select the all_port/s you want to explore**')
+langs = st.multiselect(' ',options=all_ports, default=all_ports)
 
 
 # ## 4.1. Embarked variable
@@ -77,18 +80,15 @@ def get_percentages(df,name_column):
 
 # Showng all p
 
-
+################ FILTER BY PORTS ###########
+plot_df = df[df.CouEmbarked.isin(langs)]
 count_Embarked = get_percentages(df, 'Embarked')
-
-
-#     Bar chart
-
-# In[64]:
 
 
 fig = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
 fig.show()
+st.plotly_chart(fig)
 
 
 # ### 4.1.2. `Embarked` vs `Survived` Stacked Bar Chart
