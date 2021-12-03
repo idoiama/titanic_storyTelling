@@ -33,31 +33,39 @@ st.header("**Overall information from Titanic**")
 Bla bla bla information from Titanic bla bla bla"""
 
 
-
+#Data loading and first checks
 df = pd.read_csv('clean_titanic.csv', index_col=0)
 
 
-# # 4. Data Exploration
-# <a class="anchor" id="4"></a>
-# 
-# [^ Index](#index)
+# 4. Data Exploration
+
 
 #     We'll Explore the data by visualizing and then noting patterns and relationships between different   
 #     variables to try and get an out of the box view as mush as possible, later this can help us impute the    'Age' 
 #     which is first in order alphabetically but we'll leave it last to get a better understanding and impute it 
 #     better than just replacing missing values with the median.
 
+
+col1, col2 = st.beta_columns(2)
+with col1:
+
+    st.subheader('Distribution of classes in all Embarked ports')
+    fig = px.bar(df, x='Embarked', y = 'Pclass',
+                color = 'Embarked',color_discrete_map=color_courses)
+    fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
+    st.plotly_chart(fig)
+
+with col2:
+    st.subheader('Distribution of Gender in all Embarked ports')
+    fig = px.bar(df, x='Embarked', y = 'Sex',
+                color = 'Embarked',color_discrete_map=color_courses)
+    fig.update_traces(texttemplate='%{text:.2s} %', textposition='inside')
+    st.plotly_chart(fig)
+
+
+
+
 # ## 4.1. Embarked variable
-# <a class="anchor" id="4.1"></a>
-# 
-# 
-# [^ Index](#index)
-
-#         Passengers on the Titanic embarked from three locations: Cherbourg, Queenstown and Southampton.
-#         Let's explore where the passengers embarked from and is there any obvious influence for survival.
-
-# In[54]:
-
 
 def get_percentages(df,name_column):
     percentage = df[name_column].value_counts(normalize=True)*100
@@ -66,17 +74,10 @@ def get_percentages(df,name_column):
     percentage = percentage.sort_values(by=name_column)
     return percentage
 
-
-# In[55]:
+# Showng all p
 
 
 count_Embarked = get_percentages(df, 'Embarked')
-
-
-
-# In[58]:
-
-
 color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 
 
