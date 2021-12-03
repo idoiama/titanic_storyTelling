@@ -78,17 +78,29 @@ def get_percentages(df,name_column):
     percentage = percentage.sort_values(by=name_column)
     return percentage
 
-# Showng all p
 
 ################ FILTER BY PORTS ###########
 plot_df = df[df.Embarked.isin(langs)]
-count_Embarked = get_percentages(df, 'Embarked')
+count_Embarked = get_percentages(plot_df, 'Embarked')
 
 
 fig = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
             color= 'Embarked', color_discrete_sequence = color_list).update_traces(texttemplate='%{text:.2s} %')
-fig.show()
 st.plotly_chart(fig)
+
+## Showing the info into two different columns
+col1, col2 = st.beta_columns(2)
+with col1:
+    st.subheader('Subplot1')
+    fig1 = px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+            color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')
+    st.plotly_chart(fig1)  
+    
+with col2:
+    st.subheader('Subplot2')
+    fig2 =  px.bar(count_Embarked, x = 'Embarked', y = 'percentage',text= 'percentage',
+            color= 'Embarked').update_traces(texttemplate='%{text:.2s} %')            
+    st.plotly_chart(fig2)
 
 
 # ### 4.1.2. `Embarked` vs `Survived` Stacked Bar Chart
