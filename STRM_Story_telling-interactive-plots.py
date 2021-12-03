@@ -133,6 +133,8 @@ st.plotly_chart(fig4)
 # Side bar, customize the dashboard with some input data
 ##############################################################################################
 age_in = st.text_input('''Let's zoom in into a range of ages: enter your age''')
+age_in = int(age_in)
+print(type(age_in))
 ages = df[df['Age'] > int(age_in)]
 
 col1, col2 = st.beta_columns(2)
