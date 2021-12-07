@@ -46,8 +46,8 @@ col1, col2 = st.beta_columns(2)
 
 with col1:
 
-    st.subheader('Distribution of Ages vs Sex vs Survival rate')
-    fig = px.scatter(df,x= 'Age', y = 'Survived',color= 'Sex',
+    st.subheader('Did young women survived more?')
+    fig = px.histogram(df,x= 'Age', y = 'Survived',color= 'Sex',
                  color_discrete_sequence = color_list)
     st.plotly_chart(fig)
 
