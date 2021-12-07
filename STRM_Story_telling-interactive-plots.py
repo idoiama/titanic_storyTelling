@@ -45,15 +45,14 @@ color_list = ['DarkCyan', 'GreenYellow', 'Orchid']
 col1, col2 = st.beta_columns(2)
 
 with col1:
-
-    st.subheader('Did young women survived more?')
-    fig = px.histogram(df,x= 'Age', y = 'Survived',color= 'Sex',
+    st.subheader('Which was the distribution of passengers according to their sex?')
+    fig = px.histogram(df,x= 'Sex',color= 'Sex',
                  color_discrete_sequence = color_list)
     st.plotly_chart(fig)
 
 with col2:
-    st.subheader('Distribution of Gender')
-    fig = px.histogram(df,x= 'Sex',color= 'Sex',
+    st.subheader('Did young women survived more?')
+    fig = px.histogram(df,x= 'Age', y = 'Survived',color= 'Sex',
                  color_discrete_sequence = color_list)
     st.plotly_chart(fig)
 
@@ -63,9 +62,9 @@ with col2:
 
 all_ports = df.Embarked.unique().tolist()
 st.subheader('**Select the all_port/s you want to explore**')
-langs = st.multiselect(' ',options=all_ports, default=all_ports)
+ports = st.multiselect(' ',options=all_ports, default=all_ports)
 
-plot_df = df[df.Embarked.isin(langs)]
+plot_df = df[df.Embarked.isin(ports)]
 count_Embarked = get_percentages(plot_df, 'Embarked')
 
 st.subheader('Distribution of people who embarked in the selected ports')
