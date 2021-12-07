@@ -105,14 +105,14 @@ options = st.selectbox(
 # Filter the information for this port specifically
 ind_port = df[df.Embarked == options]
 
-st.subheader('Distribution of people in the different classes')
+st.subheader('How many people were travelling in the different classes?')
 classes_ = get_percentages(ind_port, 'Pclass')
 
 fig3 = px.pie(classes_, values='percentage', color= 'Pclass',names= 'Pclass', title = 'Class distribution',
                color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
 st.plotly_chart(fig3)
 
-st.subheader('People that did not survived')
+st.subheader('How many females and males were travelling in the selected port?')
 sex_ = get_percentages(ind_port , 'Sex')
 fig4 = px.pie(sex_, values='percentage', color= 'Sex',names= 'Sex', title = 'Sex distribution',
                color_discrete_sequence = color_list).update_traces(textposition='inside', textinfo='percent')
